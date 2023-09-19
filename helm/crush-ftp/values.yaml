@@ -1,0 +1,96 @@
+app:
+  appName: "crash-ftp"
+  secrets:
+    values:
+      crushAdminPassword: "password"
+      datasourcePassword: "password"
+  deployment:
+    imagePullSecrets:
+      - name: crossinxregcred
+    container:
+      image:
+        registry: "docker.crossinx.com"
+        repository: "crush-ftp"
+        tag: "10-3"
+      ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        - name: ftp
+          containerPort: 21
+          protocol: TCP
+        - name: sftp
+          containerPort: 2222
+          protocol: TCP
+      enableDefaultLivenessProbe: false
+      readinessProbe:
+        tcpSocket:
+          port: 8080
+        initialDelaySeconds: 40
+        periodSeconds: 40
+        timeoutSeconds: 20
+      livenessProbe:
+        tcpSocket:
+          port: 8080
+        initialDelaySeconds: 60
+        periodSeconds: 40
+        timeoutSeconds: 20
+      resources:
+        requests:
+          memory: "1000Mi"
+          cpu: "500m"
+        limits:
+          memory: "1000Mi"
+          cpu: "500m"
+      secretEnv:
+        - name: ADMIN_PASSWORD
+          key: crushAdminPassword
+        - name: DATASOURCE_PASSWORD
+          key: datasourcePassword
+      env:
+        - name: ADMIN_USER
+          value: "crossnet_admin"
+        - name: JAVA_OPTIONS
+          value: "-Xmx512m"
+        - name: DATASOURCE_URL
+          value: "jdbc:postgresql://url"
+        - name: DATASOURCE_USER
+          value: "username"
+        - name: DATASOURCE_DRIVERCLASS
+          value: "org.postgresql.Driver"
+        - name: DATASOURCE_MAXWAIT
+          value: "60000"
+        - name: DATASOURCE_POOLSIZE
+          value: "2"
+        - name: DATASOURCE_AUTOCOMMIT
+          value: "false"
+        - name: HIBERNATE_DIALECT
+          value: "org.hibernate.dialect.PostgreSQL94Dialect"
+        - name: HIBERNATE_SHOW_SQL
+          value: "true"
+        - name: HIBERNATE_USE_JDBC_METADATA_DEFAULTS
+          value: "false"
+        - name: BROKER_TRUSTEDPACKAGES
+          value: "com.findxnet.core.jms.message"
+        - name: BROKER_URL
+          value: "integration-broker.default.svc.cluster.local:61616"
+        - name: STORAGEBASEPATH
+          value: "/home/appuser/inbox"
+        - name: LOGINBOUNDPATH
+          value: "file:/mnt/FTP/Shared/"
+  persistentVolumeClaim:
+    enabled: true
+    mountPath: /mnt/FTP/Shared
+    name: crushftp-storage-pvc
+  service:
+    type: LoadBalancer
+    ports:
+      - name: http
+        port: 8080
+        targetPort: http
+      - name: ftp
+        port: 21
+        targetPort: ftp
+      - name: sftp
+        port: 2222
+        targetPort: sftp

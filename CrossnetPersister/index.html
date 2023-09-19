@@ -1,0 +1,107 @@
+<div id="autocompleteFix" style="position:absolute;top:-200px;">
+    <input type="text" name="email" value="" style="display: none" />
+    <input type="text" name="email" value=""/>
+    <input type="text" name="not-an-email" value="" style="display: none" />
+    <input type="password" name="password" value="" style="display: none" />
+    <input type="password" name="password" value=""/>
+</div>
+<!-- Plugin HTML -->
+<div id="pnlPluginCrossnetPersister">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td>
+                <div id="pluginSection" class="customForm">
+                    <p>
+                        <input type="checkbox" name="enabled" id="enabled" />
+                        <label for="enabled" class="ui-priority-primary CrossnetPersister lblEnabledText">Enabled</label>
+
+                        <span class="spacer"></span>
+                        <span class="spacer"></span>
+
+                        <input type="checkbox" name="debug" id="debug" />
+                        <label for="debug" class="ui-priority-primary CrossnetPersister lblDebugText" class="nonEmbed">Debug</label>
+
+                        <span style="float:right;" class="nonEmbed">
+                            <span class="CrossnetPersister lblVersionText">Version:</span>
+                            <span class="liveData" id="version"></span>
+                        </span>
+                    </p>
+					<p>
+                        <label for="db_url" class="CrushSQL lblDatabaseURLText">Database URL:</label>
+                        <input type="text" id="db_url" name="db_url" class="bigInputBox url" />
+                    </p>
+                    <p>
+                        <label for="db_user" class="CrushSQL lblDatabaseUserText">Database User:</label>
+                        <input type="text" id="db_user" name="db_user" />
+
+                        <span class="spacer"></span>
+
+                        <label for="db_pass" class="CrushSQL lblDatabasePasswordText">Pass:</label>
+                        <input type="password" id="db_pass" class="encryptPass" name="db_pass" />
+
+                        <span class="spacer"></span>
+					</p>
+					<p>
+                        <label for="logInbound_path" class="CrushSQL lblDatabaseURLText">Loginbound path:</label>
+                        <input type="password" id="logInbound_path" name="logInbound_path" class="encryptPass" />
+                    </p>
+					<p>
+                        <label for="broker_url" class="CrushSQL lblDatabaseURLText">Broker url:</label>
+                        <input type="text" id="broker_url" name="broker_url" class="bigInputBox url" />
+                    </p>
+                    <p>
+                        <label for="storage_base_path" class="CrushSQL lblDatabaseURLText">Storage base path:</label>
+                        <input type="text" id="storage_base_path" name="storage_base_path" class="bigInputBox url" />
+                    </p>
+                    <p>
+                        <label for="db_driver_class" class="CrushSQL lblDatabaseURLText">DB driver class:</label>
+                        <input type="text" id="db_driver_class" name="db_driver_class" class="bigInputBox url" />
+                    </p>
+                    <div class="tabs nobg">
+                        <ul>
+                            <li><a href="#Help" class="CrossnetPersister lblHelpTabText">Help</a>
+                            </li>
+                            <li><a href="#Setup" id="setupTabLink" class="CrossnetPersister lblSetupTabText">Setup</a>
+                            </li>
+                        </ul>
+                        <div class="pluginDetails CrossnetPersister pnlHelpInstructionsText" id="Help" style="line-height:20px;">
+                            <div style="width:600px;">
+                                <strong>CrossnetPersister Plugin Help</strong>
+                                <p>
+                                    Simple plugin that just generates the users home directory when they first login.
+                                    This way you could use say the SQL plugin and setup a user. When they actually
+                                    login, a new folder could be created for them to upload into.
+                                </p>
+                                <strong>How to use:</strong>
+                                <p>
+                                    Set a location where users home folders will be created at. Use the browse button to pick
+                                    the location.
+                                </p>
+                                <p>
+                                    Specify the permission they will have in that folder. In general you will give them full
+                                    permissions here as this folder is probably empty. This way they can then login, and upload
+                                    files to it. If the folder doesn't exist, it will be created for them.
+                                </p>
+                                <p>
+                                    To test, create a new user via the user manager. Don't setup any directory
+                                    items in the "user's stuff (VFS)" pane. Then login with that user and look for
+                                    the new folder that just got created.
+                                    For the time/date format on a unique folder, search google for 'SimpleDateFormat'.
+                                </p>
+                                <p>
+                                    Questions? Email me:<a target="_blank" href="mailto:support@crushftp.com">support@crushftp.com</a>
+                                </p>
+                                <p>
+                                    --Ben Spink
+                                </p>
+                            </div>
+                        </div>
+                        <div id="Setup" class="ui-corner-all ui-widget-content nobg actionConfigPanel" style="padding:5px 10px;">
+                            <b>CROSSNET PERSISTER</b>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

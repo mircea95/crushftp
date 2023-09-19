@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: crushftp-storage-pv
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 192.168.5.112
+    path: "/distributed/crossnet/share/crushftp"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: crushftp-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: crushftp-storage-pv
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ""

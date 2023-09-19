@@ -1,0 +1,10 @@
+apiVersion: v2
+name: crashftp
+description: Helm chart for crashftp microservice
+version: 10.0.0
+appVersion: 10.0.0
+dependencies:
+  - name: base
+    repository: 
+    version: 0.5.x
+    alias: app
